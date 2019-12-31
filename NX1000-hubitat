@@ -303,7 +303,7 @@ def zwaveEvent(hubitat.zwave.commands.associationv2.AssociationGroupingsReport c
 }
 
 // Log unexpected Z-Wave commands
-def zwaveEvent(physicalgraph.zwave.Command cmd) {
+def zwaveEvent(hubitat.zwave.Command cmd) {
     log.debug ("unknown Command Recieved")
     log.debug (cmd)
     createEvent([:])
