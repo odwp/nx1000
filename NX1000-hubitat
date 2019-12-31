@@ -1,6 +1,11 @@
 /**
  *  Nexia NX1000 One Touch Controller
  *
+ *  This version of the driver was forked from DarwinsDen and adapted to work on Hubitat by odwp. 
+ *  
+ *  The following is the original header comments from the DarwinsDen source.
+ *  _____________________________________________________________________________________________
+ *  
  *  For device information and images, questions or to provide feedback on this device handler, 
  *  please visit: 
  *
