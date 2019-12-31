@@ -229,16 +229,16 @@ def buttonEvent(button, pressType) {
    result
 }
 
-def zwaveEvent(physicalgraph.zwave.commands.sceneactivationv1.SceneActivationSet cmd) {
+def zwaveEvent(hubitat.zwave.commands.sceneactivationv1.SceneActivationSet cmd) {
   log.debug ("Unexpected scene activationset received")
   log.debug (cmd)
 }
 
-def zwaveEvent(physicalgraph.zwave.commands.sceneactuatorconfv1.SceneActuatorConfGet cmd) {
+def zwaveEvent(hubitat.zwave.commands.sceneactuatorconfv1.SceneActuatorConfGet cmd) {
   log.debug ("Unexpected scene actuator config command received")
 }
 
-def zwaveEvent(physicalgraph.zwave.commands.centralscenev1.CentralSceneNotification cmd) {
+def zwaveEvent(hubitat.zwave.commands.centralscenev1.CentralSceneNotification cmd) {
     def result = []
     //Set the button number in the device handler GUI
     result << createEvent(name: "buttonNum", value: "$cmd.sceneNumber", data: [buttonNumber: cmd.sceneNumber], isStateChange: true)
@@ -246,27 +246,27 @@ def zwaveEvent(physicalgraph.zwave.commands.centralscenev1.CentralSceneNotificat
 }
 
 // The controller sent a scene activation report.  Log it, but it really shouldn't happen.
-def zwaveEvent(physicalgraph.zwave.commands.sceneactuatorconfv1.SceneActuatorConfReport cmd) {
+def zwaveEvent(hubitat.zwave.commands.sceneactuatorconfv1.SceneActuatorConfReport cmd) {
    log.debug "Unexpected Scene activation report Received"
 }
 
-def zwaveEvent(physicalgraph.zwave.commands.configurationv1.ConfigurationReport cmd) {
+def zwaveEvent(hubitat.zwave.commands.configurationv1.ConfigurationReport cmd) {
   log.debug ("Unexpected config report Received")
 }
 
-def zwaveEvent(physicalgraph.zwave.commands.hailv1.Hail cmd) {
+def zwaveEvent(hubitat.zwave.commands.hailv1.Hail cmd) {
   log.debug ("Unexpected hail received")
 }
 
-def zwaveEvent (physicalgraph.zwave.commands.screenattributesv1.ScreenAttributesReport cmd) {
+def zwaveEvent (hubitat.zwave.commands.screenattributesv1.ScreenAttributesReport cmd) {
   log.debug ("Unexpected Screen Attribute V1 Report Received")
 }
 
-def zwaveEvent (physicalgraph.zwave.commands.screenmdv1.ScreenMdReport cmd) {
+def zwaveEvent (hubitat.zwave.commands.screenmdv1.ScreenMdReport cmd) {
   log.debug ("Unexpected Screen MD Report V1 Received")
 }
 
-def zwaveEvent(physicalgraph.zwave.commands.wakeupv2.WakeUpNotification cmd) {
+def zwaveEvent(hubitat.zwave.commands.wakeupv2.WakeUpNotification cmd) {
     log.debug ("Received Wakeup notification")
     def result = []
     result << createEvent(descriptionText: "${device.displayName} woke up", displayed: false)
@@ -278,7 +278,7 @@ def zwaveEvent(physicalgraph.zwave.commands.wakeupv2.WakeUpNotification cmd) {
     return result
 }
 
-def zwaveEvent(physicalgraph.zwave.commands.batteryv1.BatteryReport cmd) {
+def zwaveEvent(hubitat.zwave.commands.batteryv1.BatteryReport cmd) {
        def result = null
        state.lastBatteryReport = new Date().time
        def batteryLevel = cmd.batteryLevel
@@ -288,7 +288,7 @@ def zwaveEvent(physicalgraph.zwave.commands.batteryv1.BatteryReport cmd) {
 }
 
 // Update manufacturer information when it is reported
-def zwaveEvent(physicalgraph.zwave.commands.manufacturerspecificv2.ManufacturerSpecificReport cmd) {
+def zwaveEvent(hubitat.zwave.commands.manufacturerspecificv2.ManufacturerSpecificReport cmd) {
    log.debug ("manufacturer specific report recieved")
    log.debug (cmd)
    if (state.manufacturer != cmd.manufacturerName) {
@@ -297,7 +297,7 @@ def zwaveEvent(physicalgraph.zwave.commands.manufacturerspecificv2.ManufacturerS
      createEvent([:])
 }
 
-def zwaveEvent(physicalgraph.zwave.commands.associationv2.AssociationGroupingsReport cmd) {
+def zwaveEvent(hubitat.zwave.commands.associationv2.AssociationGroupingsReport cmd) {
    def response = []
    log.debug ("Unexpected association Groupings Report Received")
 }
