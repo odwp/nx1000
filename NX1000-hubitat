@@ -427,7 +427,7 @@ def configure() {
     
     // C&E T: set button texts on device
     for (def buttonNum = 1; buttonNum <= 15; buttonNum++) {  
-        cmd << createCommandToSetButtonLabel(buttonNum-1, device.currentValue("label"+buttonNum))
+        cmd << createCommandToSetButtonLabel(buttonNum-1, state.buttonLabels[buttonNum-1])
         cmd << "delay 1200" // using such a long delay seems to be the safest way to go
     }
     
