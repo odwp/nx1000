@@ -50,7 +50,7 @@
   
   definition (name: "Nexia One Touch Controller", namespace: "darwinsden", author: "darwin@darwinsden.com") {
         capability "Actuator"
-        capability "Button"
+        capability "PushableButton"
         capability "Configuration"
         capability "Indicator"
         capability "Sensor"
