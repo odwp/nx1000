@@ -31,6 +31,8 @@
  *  Changelog:
  *  
  *  1.0 (07 Jan 2020) - Initial release  
+ *  1.1 (07 Jan 2020) - Added "Enable Debug Logging" control to all log.debug commands. 
+ *                      Removed some debug commands that were commented out.
  *  
  *  
 */
@@ -214,8 +216,8 @@ def installed(){
 
 // Update manufacturer information when it is reported
 def zwaveEvent(hubitat.zwave.commands.manufacturerspecificv2.ManufacturerSpecificReport cmd) {
-   log.debug ("manufacturer specific report recieved")
-   log.debug (cmd)
+   if (logEnable) log.debug ("manufacturer specific report recieved")
+   if (logEnable) log.debug (cmd)
    if (state.manufacturer != cmd.manufacturerName) {
      updateDataValue("manufacturer", cmd.manufacturerName)
    }
@@ -223,7 +225,7 @@ def zwaveEvent(hubitat.zwave.commands.manufacturerspecificv2.ManufacturerSpecifi
 }
 
 def zwaveEvent(hubitat.zwave.commands.wakeupv2.WakeUpNotification cmd) {
-    log.debug ("Received Wakeup notification")
+    if (logEnable) log.debug ("Received Wakeup notification")
     def result = []
     result << createEvent(descriptionText: "${device.displayName} woke up", displayed: false)
 	if (!isDuplicateCall(state.lastWokeUp, 1)) {
@@ -332,7 +334,7 @@ def setButtonLabels() {
 def configurationCmds() {
     def commands = []
  
-    log.debug ("Entered configurationCmds")
+    if (logEnable) log.debug ("Entered configurationCmds")
     
     // Loop through all the buttons on the controller
     for (def buttonNum = 1; buttonNum <= 15; buttonNum++) {  
@@ -361,7 +363,7 @@ def configure() {
         cmd << "delay 1200" // using such a long delay seems to be the safest way to go
     }
     
-    log.debug("Sending configuration: ${cmd}")
+    if (logEnable) log.debug("Sending configuration: ${cmd}")
     return cmd
 }
 
@@ -401,7 +403,6 @@ def createCommandToSetButtonLabel(lineNumber, text) {
         def screenReportHeader = "92"+"02"+"3B"
         def lineSettings = "1"
         def lineNumberString = Integer.toHexString(lineNumber)
-        //log.debug "createCommandToSetButtonLabel: lineNumberString: ${lineNumberString}"
         def characterPositionString = "00"
         text = limitTextLength(text)
         def label = asciiToHex(text)
@@ -411,7 +412,6 @@ def createCommandToSetButtonLabel(lineNumber, text) {
         if (numOfCharString.length() == 1) {
             numOfCharString = "0" + numOfCharString
         }
-        //log.debug "createCommandToSetButtonLabel: numOfCharString: ${numOfCharString}"
         command = screenReportHeader + lineSettings + lineNumberString + characterPositionString + numOfCharString + label
     }
     
